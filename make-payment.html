@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Make a Payment</title>
+  <link rel="stylesheet" href="payment.css">
+</head>
+<body>
+  <h1>Fintech App</h1>
+  <h2>Make a Payment</h2>
+  <form>
+    <label for="recipient">Recipient:</label><br>
+    <input type="text" id="recipient" name="recipient"><br>
+    <label for="amount">Amount:</label><br>
+    <input type="text" id="amount" name="amount"><br><br>
+    <button type="submit">Submit</button>
+  </form> 
+  <script>
+    const form = document.getElementById('payment-form');
+    form.addEventListener('submit', event => {
+      event.preventDefault(); // prevent the form from being submitted
+      const recipient = form.elements.recipient.value;
+      const amount = form.elements.amount.value;
+      if (recipient === '' || amount === '') {
+        // display an error message if the recipient or amount is empty
+        alert('Please enter a recipient and amount');
+      } else {
+        // otherwise, send a request to the server to initiate the payment or transfer
+        fetch('/make-payment', {
+          method: 'POST',
+          body: JSON.stringify({ recipient, amount }),
+          headers: { 'Content-Type': 'application/json' }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            // if the payment or transfer was successful, display a success message
+            alert('Payment/transfer successful');
+          } else {
+            // otherwise, display an error message
+            alert('Error making payment/transfer');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

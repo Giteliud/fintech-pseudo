@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Account Overview</title>
+  <link rel="stylesheet" href="overview.css">
+</head>
+<body>
+  <h1>Fintech App</h1>
+  <h2>Account Overview</h2>
+  <div class="account-summary">
+    <h3>Current balance: $1,000.00</h3>
+    <button onclick="location.href='make-payment.html'">Make a Payment</button>
+    <button onclick="location.href='transfer-money.html'">Transfer Money</button>
+  </div>
+  <h3>Recent Transactions:</h3>
+  <table>
+    <tr>
+      <th>Date</th>
+      <th>Description</th> 
+      <th>Amount</th>
+    </tr>
+    <tr>
+      <td>Jan 1, 2021</td>
+      <td>Payment to XYZ Company</td> 
+      <td>$100.00</td>
+    </tr>
+    <tr>
+      <td>Jan 5, 2021</td>
+      <td>Transfer to ABC Bank</td> 
+      <td>$500.00</td>
+    </tr>
+  </table>
+  <script>
+    // make a GET request to the server to retrieve the account information
+    fetch('/account-info')
+      .then(response => response.json())
+      .then(data => {
+        // update the page with the account information
+        const accountInfo = document.getElementById('account-info');
+        accountInfo.innerHTML = `
+          <p>Username: ${data.username}</p>
+          <p>Balance: ${data.balance}</p>
+        `;
+      });
+  </script>
+</body>
+</html>
